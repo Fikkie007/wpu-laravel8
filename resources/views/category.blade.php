@@ -3,23 +3,64 @@
 @section('container')
 <h1 class="mb-5">Post Category : {{ $category }}</h1>
 
-@foreach ($posts as $p)
+@if ($posts->count())
+    
+<div class="card mb-3">
 
-<article class="mb-5">
-    <h2>
-        <a href="/posts/{{ $p->slug }}">
-            {{ $p->title }}</a>
-        </h2>
+    <img src="https://source.unsplash.com/1200x400?{{ $posts[0]->category->name }}" class="card-img-top" alt="{{ $posts[0]->category->name }}">
 
-    <a href="/authors/{{ $p->author->username }}"><h5>By: {{ $p->author->name }}</h5>
-    </a>
+    <div class="card-body text-center">
 
-    <p>{{ $p->excerpt }}</p>
+      <h3 class="card-title">
+        <a href="/posts/{{ $posts[0]->slug }}" class="text-decoration-none text-dark">{{ $posts[0]->title }}</a>
+    </h3>
 
-    <h5>Created at: {{ date('d F Y' , strtotime($p->updated_at)) }}</h5>
-</article>
+      <p>
+        <small class="text-muted">
+            By: <a href="/authors/{{ $posts[0]->author->username }}" class="text-decoration-none">{{ $posts[0]->author->name }}</a> in <a href="posts/categories/{{ $posts[0]->category->slug }}" class="text-decoration-none">{{ $posts[0]->category->name }}</a>
+            {{ $posts[0]->created_at->diffForHumans() }}
+        </small>
+        </p>
 
-@endforeach
+      <p class="card-text">{{ $posts[0]->excerpt }}</p>
+
+      <a href="/posts/{{ $posts[0]->slug }}" class="text-decoration-none btn btn-primary">Read More</a>
+
+    </div>
+  </div>
+@else
+
+<p class="tex-center fs-4" >No Post Found</p>
+    
+@endif
+
+<div class="container">
+    <div class="row">
+        @foreach ($posts->skip(1) as $posts)
+
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="position-absolute bg-dark px-3 py-2 text-white" style="background-color: rgba(0,0,0,0.7)">
+                    <a href="posts/categories/{{ $posts->category->slug }}" class="text-white text-decoration-none">
+                    {{ $posts->category->name }}
+                </a>
+                </div>
+                <img src="https://source.unsplash.com/500x400?{{ $posts->category->name }}" class="card-img-top" alt="{{ $posts->category->name }}">
+                <div class="card-body">
+                  <h5 class="card-title"> {{ $posts->title }}</h5>
+                  <small class="text-muted">
+                    By: <a href="/authors/{{ $posts->author->username }}" class="text-decoration-none">{{ $posts->author->name }}</a>
+                    {{ $posts->created_at->diffForHumans() }}
+                </small>
+                  <p class="card-text">{{ $posts->excerpt }}</p>
+                  <a href="/posts/{{ $posts->slug }}" class="btn btn-primary">ReadMore</a>
+                </div>
+              </div>
+        </div>
+
+        @endforeach
+    </div>
+</div>
 
 <a href="/blog">Back To Post</a>
 

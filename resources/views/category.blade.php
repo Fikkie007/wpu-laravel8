@@ -11,7 +11,8 @@
             {{ $p->title }}</a>
         </h2>
 
-    <h5>By: {{ $p->author->name }}</h5>
+    <a href="/authors/{{ $p->author->username }}"><h5>By: {{ $p->author->name }}</h5>
+    </a>
 
     <p>{{ $p->excerpt }}</p>
 

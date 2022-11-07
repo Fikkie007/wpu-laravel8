@@ -11,7 +11,8 @@
             {{ $p->title }}</a>
         </h2>
 
-    <h5>By: {{ $p->author->name }}</h5>
+        <p>By: <a href="/authors/{{ $p->author->username }}" class="text-decoration-none">{{ $p->author->name }}</a> in 
+            <a href="/posts/categories/{{ $p->category->slug }}" class="text-decoration-none">{{ $p->category->name }}</a></p>
 
     <p>{{ $p->excerpt }}</p>
 

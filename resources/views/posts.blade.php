@@ -10,7 +10,7 @@
             {{ $p->title }}</a>
         </h2>
 
-        <p>By: <a href="posts/authors/{{ $p->author->username }}" class="text-decoration-none">{{ $p->author->name }}</a> in <a href="posts/categories/{{ $p->category->slug }}" class="text-decoration-none">{{ $p->category->name }}</a></p>
+        <p>By: <a href="/authors/{{ $p->author->username }}" class="text-decoration-none">{{ $p->author->name }}</a> in <a href="posts/categories/{{ $p->category->slug }}" class="text-decoration-none">{{ $p->category->name }}</a></p>
 
     <p>{{ $p->excerpt }}</p>
 
